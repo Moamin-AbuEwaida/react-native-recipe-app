@@ -9,19 +9,17 @@ import {
 import React from "react";
 import { recipeList, colors } from "../Constant";
 import { FontAwesome } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
 const RecipeCard = () => {
+  const navigation = useNavigation();
   return (
     <View>
       <FlatList
-        // style={{ marginHorizontal: 10 }}
         data={recipeList}
-        numColumns={2}
-        columnWrapperStyle={{ justifyContent: "space-between" }}
-        showsVerticalScrollIndicator={false}
         renderItem={({ item }) => (
           <Pressable
-            onPress={() => alert("hi")}
+            onPress={() => navigation.navigate("RecipeDetail", { item: item })}
             style={{
               backgroundColor: colors.COLOR_LIGHT,
               shadowColor: "#000",
@@ -34,7 +32,6 @@ const RecipeCard = () => {
               paddingHorizontal: 8,
               paddingVertical: 26,
             }}
-            key={item.id}
           >
             <Image
               source={item.image}
@@ -47,12 +44,12 @@ const RecipeCard = () => {
               <Text style={{ marginRight: 4 }}>{item.rating}</Text>
               <FontAwesome name="star" size={16} color={colors.COLOR_PRIMARY} />
             </View>
-            {/* <View style={{ flexDirection: "row" }}>
-              <Text style={{ marginRight: 4 }}>{item.rating}</Text>
-              <FontAwesome name="star" size={16} color={colors.COLOR_PRIMARY} />
-            </View> */}
           </Pressable>
         )}
+        style={{ marginHorizontal: 10 }}
+        numColumns={2}
+        columnWrapperStyle={{ justifyContent: "space-between" }}
+        showsVerticalScrollIndicator={false}
       />
     </View>
   );
